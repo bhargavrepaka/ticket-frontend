@@ -1,7 +1,4 @@
-*{
-    border: 1px solid red;
-    box-sizing: border-box;
-}
+
 .default-layout{
     display: grid;
     grid-template-rows: 80px auto 3rem;
@@ -13,7 +10,7 @@
     }
     main{
         grid-area: main;
-        min-height: 84vh;
+        min-height: 85vh;
     }
     footer{
         grid-area: footer;
