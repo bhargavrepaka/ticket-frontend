@@ -1,5 +1,6 @@
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { LinkContainer } from 'react-router-bootstrap';
 const Header = () => {
   return (
     <Navbar expand="md" variant='dark' bg='info' className='p-2'>
@@ -9,9 +10,10 @@ const Header = () => {
         > */}
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className='ms-auto'>
-                    <Nav.Link href="/dash">DashBoard</Nav.Link>
-                    <Nav.Link href="/dash">Tickets</Nav.Link>
-                    <Nav.Link href="/dash">Logout</Nav.Link>
+                <LinkContainer to={"/dashboard"}><Nav.Link >DashBoard</Nav.Link></LinkContainer>
+                <LinkContainer to={"/tickets"}><Nav.Link >Tickets</Nav.Link></LinkContainer>
+                <LinkContainer to={"/"}><Nav.Link >Logout</Nav.Link></LinkContainer>
+                 
                 </Nav>
             </Navbar.Collapse>
 

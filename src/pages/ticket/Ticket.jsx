@@ -3,11 +3,20 @@ import PageBreadcrumb from "../../components/breadcrumb/Breadcrumb"
 import tickets from "../../data/dumy-tickets.json"
 import MessageHistory from "../../components/message-history/MessageHistory"
 import UpdateTicket from "../../components/update-ticket/UpdateTicket"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useParams } from "react-router-dom"
 
-const ticket=tickets[0]
+
 const Ticket = () => {
-    const [message,setMessage]=useState()
+    const [message,setMessage]=useState("")
+    const [ticket,setTicket]=useState({})
+    const {tid}=useParams()
+    console.log(tid)
+
+    useEffect(()=>{
+        tickets.forEach((tkt)=>{ if(tkt.id==tid) return setTicket(tkt) })
+    },[tid,message])
+    
 
     function handleOnChange(e){
         console.log(e.target.value)

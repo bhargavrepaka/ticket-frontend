@@ -5,6 +5,7 @@ import SearchForm from '../../components/search-form/SearchForm'
 import { useState } from 'react'
 import TicketTable from '../../components/ticket-table/TicketTable'
 import tickets from "../../data/dumy-tickets.json"
+import { Link } from 'react-router-dom'
 
 
 const TicketListing = () => {
@@ -32,7 +33,10 @@ const TicketListing = () => {
         </Row>
         <Row>
             <Col>
-                <Button variant='info'>Add Ticket</Button>
+                <Link to={"/add-ticket"}>
+                 <Button variant='info'>Add Ticket</Button>
+                </Link>
+                
             </Col>
             <Col className='text-right'>
                 <SearchForm handleOnChange={handleOnChange} str={searchStr} ></SearchForm>

@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import { Table } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 const TicketTable = ({tickets}) => {
   return (
@@ -19,7 +20,7 @@ const TicketTable = ({tickets}) => {
           return (
           <tr key={ticket.id}>
             <td>{ticket.id}</td>
-            <td>{ticket.subject}</td>
+            <td><Link to={`/ticket/${ticket.id}`}>{ticket.subject}</Link></td>
             <td>{ticket.status} </td>
             <td>{ticket.addedAt}</td>
           </tr>
