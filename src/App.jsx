@@ -4,7 +4,7 @@ import DefaultLayout from "./layouts/DefaultLayout"
 import Dashboard from "./pages/dashboard/Dashboard"
 import NewTicket from "./pages/new-ticket/NewTicket"
 import TicketListing from "./pages/ticket-listing/TicketListing"
-
+import Ticket from "./pages/ticket/Ticket"
 
 import './App.scss'
 const App = () => {
@@ -14,7 +14,8 @@ const App = () => {
       <DefaultLayout>
         {/* <Dashboard></Dashboard> */}
         {/* <NewTicket></NewTicket> */}
-        <TicketListing></TicketListing>
+        {/* <TicketListing></TicketListing> */}
+        <Ticket></Ticket>
       </DefaultLayout>
     </div>
 

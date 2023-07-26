@@ -1,0 +1,19 @@
+.message-history{
+    display: flex;
+    justify-content: space-between;
+   
+}
+.operator-message{
+    flex-direction: row-reverse;
+}
+
+.client-message{
+    flex-direction: row-reverse;
+}
+
+.message{
+    padding: 1rem;
+    width: 80%;
+    border: 1px solid rgb(12, 137, 232);
+    border-radius: 0.25rem;
+}
