@@ -1,12 +1,40 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 
 import { Container,Row,Col ,Button} from 'react-bootstrap'
 import TicketTable from '../../components/ticket-table/TicketTable'
 import tickets from '../../data/dumy-tickets.json'
 import PageBreadcrumb from '../../components/breadcrumb/Breadcrumb'
 import { Link } from 'react-router-dom'
+import { useEffect } from 'react'
+import { useUser } from '../../context/userContext'
+import axios from 'axios'
 
 
 const Dashboard = () => {
+    const {setUser}=useUser()
+
+    useEffect(()=>{
+        async function getUserDetails(){
+            try {
+                const accessJwt=sessionStorage.getItem("accessJwt")
+                const result = await axios.get("http://localhost:3000/v1/user",{
+                    headers:{
+                        Authorization:accessJwt
+                    }
+                })
+                console.log(result)
+                if(result.data.success){
+                    setUser(result.data)
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        getUserDetails()
+    },[])
+
+
+
   return (
     <Container>
         <Row>

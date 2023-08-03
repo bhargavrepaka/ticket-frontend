@@ -1,8 +1,31 @@
 /* eslint-disable react/prop-types */
 
-import { Container,Row,Col,Form ,Button} from 'react-bootstrap'
+import axios from 'axios'
+import { useState } from 'react'
+import { Container,Row,Col,Form ,Button, Alert} from 'react-bootstrap'
+import { useNavigate } from 'react-router-dom'
+const Login = ({formSwitcher}) => {
+  const [email,setEmail]=useState("")
+  const [password,setPassword]=useState("")
+  const [error,setError]=useState("")
+  const navigate=useNavigate()
 
-const Login = ({handleOnChange,handleOnSubmit,email,password,formSwitcher}) => {
+  async function handleOnSubmit(e){
+    e.preventDefault()
+    setError("")
+    try {
+      const result = await axios.post("http://localhost:3000/v1/user/login",{email,password})
+      console.log(result.data)
+      if(result.data.success){
+        sessionStorage.setItem("accessJwt",result.data.accessJwt)
+        localStorage.setItem("ticketsystem",JSON.stringify({refreshJwt:result.data.refreshJwt}))
+      }
+      navigate("/dashboard")
+    } catch (err) {
+      console.log(err)
+      setError(err.message)
+    }
+  }
   return (
     <div>
         <Container>
@@ -10,6 +33,7 @@ const Login = ({handleOnChange,handleOnSubmit,email,password,formSwitcher}) => {
             <Col>
             <h1>Client Login</h1>
             <hr />
+            {error && <Alert variant='danger'>Something went wrong...</Alert> }
             <Form onSubmit={handleOnSubmit}>
               <Form.Group className='my-3'>
                 <Form.Label>Email Address</Form.Label>
@@ -19,7 +43,7 @@ const Login = ({handleOnChange,handleOnSubmit,email,password,formSwitcher}) => {
                 placeholder='Enter Email'
                 required
                 value={email}
-                onChange={handleOnChange}
+                onChange={(e)=>setEmail(e.target.value)}
                 ></Form.Control>
               </Form.Group>
               <Form.Group className='my-3'>
@@ -30,7 +54,7 @@ const Login = ({handleOnChange,handleOnSubmit,email,password,formSwitcher}) => {
                 placeholder='Enter Password'
                 required
                 value={password}
-                onChange={handleOnChange}
+                onChange={(e)=>setPassword(e.target.value)}
                 ></Form.Control>
               </Form.Group>
               <Button type='submit'>Login</Button>

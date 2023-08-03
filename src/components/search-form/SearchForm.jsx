@@ -1,9 +1,23 @@
 /* eslint-disable react/prop-types */
 
 import { Col, Form, Row } from 'react-bootstrap'
+import { useTickets } from '../../context/ticketContext'
+import { useState } from 'react'
 
-const SearchForm = ({handleOnChange,str}) => {
-    console.log(str)
+const SearchForm = () => {
+    const [searchStr,setSearchStr]=useState("")
+    const {tickets,setSearchTicketsResult}=useTickets()
+
+    function handleOnChange(e){
+        const str=e.target.value
+        setSearchStr(e.target.value)
+        console.log(tickets)
+        const searchResult=tickets.filter((ticket)=>{
+           return ticket.subject.toLowerCase().includes(str.toLowerCase())
+        })
+        setSearchTicketsResult(searchResult)
+        console.log(searchResult)
+    }
   return (
     <div>
         <Form>
@@ -14,7 +28,7 @@ const SearchForm = ({handleOnChange,str}) => {
                     name='searchStr'
                     placeholder='Search...'
                     onChange={handleOnChange}
-                    value={str}
+                    value={searchStr}
                     ></Form.Control>
                 </Col>
             </Form.Group>

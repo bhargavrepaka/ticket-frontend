@@ -5,6 +5,7 @@ import PasswordReset from '../../components/password-reset/PasswordReset'
 
 const Entry = () => {
   const [email,setEmail]=useState("")
+  // eslint-disable-next-line no-unused-vars
   const [password,setPassword]=useState("")
   const [formLoad,setFormLoad]=useState("login")
 
@@ -22,11 +23,7 @@ const Entry = () => {
         break
     }
   }
-  function handleOnSubmit(e){
-    e.preventDefault()
-    //todo submit to api call
-    console.log(email,password)
-  }
+ 
   function handleOnResetSubmit(e){
     e.preventDefault()
     //todo submit to api call
@@ -43,12 +40,8 @@ const Entry = () => {
       <div className=" p-5 bg-white text-black rounded form-box">
 
        {formLoad==="login" && 
-          <Login handleOnChange={handleOnChange} 
-              handleOnSubmit={handleOnSubmit} 
-              email={email} 
-              password={password}
-              formSwitcher={formSwitcher}>
-                
+          <Login 
+              formSwitcher={formSwitcher}> 
           </Login>
         }
 
