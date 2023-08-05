@@ -5,23 +5,10 @@ import PageBreadcrumb from '../../components/breadcrumb/Breadcrumb'
 import AddTicketForm from '../../components/add-ticket-form/AddTicketForm'
 import { useState } from 'react'
 
-const initialFormData={
-  subject:"",
-  issueDate:"",
-  details:""
 
-}
 
 const NewTicket = () => {
-  const [formData,setFormData]=useState(initialFormData)
-
-  function handleOnChange(e){
-    const {name,value}=e.target
-    setFormData((prev)=>{
-      return {...prev,[name]:value}
-    })
-
-  }
+  
   return (
     <Container >
         <Row>
@@ -31,7 +18,7 @@ const NewTicket = () => {
         </Row>
         <Row>
             <Col>
-              <AddTicketForm handleOnChange={handleOnChange} formData={formData}></AddTicketForm>
+              <AddTicketForm></AddTicketForm>
             </Col>
         </Row>
     </Container>

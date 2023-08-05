@@ -10,6 +10,8 @@ export const TicketProvider=({children})=>{
     const [isLoading,setLoading]=useState(false)
     const [error,setError]=useState("")
     const [searchTicketsResult,setSearchTicketsResult]=useState([])
+    const [openTickets,setOpenTickets]=useState(0)
+    const [totalTickets,setTotalTickets]=useState(0)
 
     return <TicketContext.Provider 
             value={{
@@ -20,7 +22,11 @@ export const TicketProvider=({children})=>{
                 isLoading,
                 setLoading,
                 searchTicketsResult,
-                setSearchTicketsResult
+                setSearchTicketsResult,
+                openTickets,
+                setOpenTickets,
+                totalTickets,
+                setTotalTickets
             }}>
             {children}
         </TicketContext.Provider>

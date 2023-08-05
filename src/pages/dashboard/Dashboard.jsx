@@ -5,13 +5,16 @@ import TicketTable from '../../components/ticket-table/TicketTable'
 import tickets from '../../data/dumy-tickets.json'
 import PageBreadcrumb from '../../components/breadcrumb/Breadcrumb'
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
+import { useEffect,} from 'react'
 import { useUser } from '../../context/userContext'
 import axios from 'axios'
+import { useTickets } from '../../context/ticketContext'
 
 
 const Dashboard = () => {
     const {setUser}=useUser()
+    const {totalTickets,openTickets}=useTickets()
+    console.log(totalTickets,openTickets)
 
     useEffect(()=>{
         async function getUserDetails(){
@@ -50,8 +53,8 @@ const Dashboard = () => {
         </Row>
         <Row>
             <Col className='text-center mb-2'>
-            <div>Total Tickets: 50</div>
-            <div>Pending Tickets: 45</div>
+            <div>Total Tickets: {totalTickets}</div>
+            <div>Open Tickets: {openTickets}</div>
             </Col>
         </Row>
         <Row>
@@ -62,7 +65,9 @@ const Dashboard = () => {
         <hr />
         <Row>
             <Col className='recent-ticket'>
-                <TicketTable tickets={tickets}></TicketTable>
+                <TicketTable 
+                    tickets={tickets}  >
+                </TicketTable>
             </Col>
         </Row>
     </Container>

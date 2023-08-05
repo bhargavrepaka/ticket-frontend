@@ -73,7 +73,7 @@ const Ticket = () => {
         <hr />
         <Row>
             <Col>
-                <UpdateTicket setRefresh={setRefresh} >
+                <UpdateTicket setRefresh={setRefresh} ticketStatus={ticket.status}>
                 </UpdateTicket>
             </Col>
         </Row>

@@ -9,7 +9,7 @@ import axios from 'axios'
 
 const TicketTable = () => {
 
-  const {setTickets,searchTicketsResult,setSearchTicketsResult}=useTickets()
+  const {setTickets,searchTicketsResult,setSearchTicketsResult,setTotalTickets,setOpenTickets}=useTickets()
   const [error,setError]=useState("")
   useEffect(()=>{
     async function getAllTickets(){
@@ -23,6 +23,11 @@ const TicketTable = () => {
         console.log(result.data)
         setTickets(result.data)
         setSearchTicketsResult(result.data)
+        setTotalTickets(result.data.length)
+        const openTickets=result.data.filter((ticket)=>{
+         return ticket.status!=="Closed"
+        })
+        setOpenTickets(openTickets.length)
       } catch (err) {
         console.log("eroor",err)
         setError(err.message)

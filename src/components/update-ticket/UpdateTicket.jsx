@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import axios from "axios"
 import { useState } from "react"
-import { Form,Button } from "react-bootstrap"
+import { Form,Button, Alert } from "react-bootstrap"
 import { useParams } from "react-router-dom"
 import { useUser } from "../../context/userContext"
-const UpdateTicket = ({setRefresh}) => {
+const UpdateTicket = ({setRefresh,ticketStatus}) => {
+  console.log(ticketStatus)
   const [message,setMessage]=useState("")
   const {user}=useUser()
   const {tid}=useParams()
@@ -12,7 +13,7 @@ const UpdateTicket = ({setRefresh}) => {
     console.log(e.target.value)
     setMessage(e.target.value)
   }
-  console.log(user.name)
+  console.log("logged in user's name -",user.name)
 
   async function handleOnSubmit(e){
       e.preventDefault()
@@ -33,7 +34,10 @@ const UpdateTicket = ({setRefresh}) => {
   }
 
   return (
-    <Form onSubmit={handleOnSubmit}>
+    ticketStatus === "Closed"? 
+      <Alert variant="danger">No longer accepts messages as the Ticket is closed...</Alert> 
+                : 
+      <Form onSubmit={handleOnSubmit}>
         <Form.Group>
             <Form.Label>Reply</Form.Label>
             <Form.Control 
@@ -45,7 +49,10 @@ const UpdateTicket = ({setRefresh}) => {
             ></Form.Control>
         </Form.Group>
         <div className="text-end mt-3">
-            <Button type="submit" variant="info">Reply</Button>
+            <Button type="submit" 
+              variant="info"
+              disabled={ticketStatus==="Closed"}
+              >Reply</Button>
         </div>
     </Form>
   )
