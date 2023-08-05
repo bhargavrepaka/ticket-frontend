@@ -7,11 +7,13 @@ import TicketListing from "./pages/ticket-listing/TicketListing"
 import Ticket from "./pages/ticket/Ticket"
 import { Route,Routes } from "react-router-dom"
 import PrivateRoute from "./components/private-route/PrivateRoute"
-
+import { Toaster } from "react-hot-toast"
 import './App.scss'
+
 const App = () => {
   return (
     <div >
+      <Toaster/>
       <Routes>
         <Route path="/"element={<Entry></Entry>} ></Route>
 
