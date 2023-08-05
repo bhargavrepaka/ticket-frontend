@@ -1,31 +1,50 @@
 import { Container,Col,Row,Button } from "react-bootstrap"
 import PageBreadcrumb from "../../components/breadcrumb/Breadcrumb"
-import tickets from "../../data/dumy-tickets.json"
 import MessageHistory from "../../components/message-history/MessageHistory"
 import UpdateTicket from "../../components/update-ticket/UpdateTicket"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
+import axios from "axios"
 
 
 const Ticket = () => {
-    const [message,setMessage]=useState("")
     const [ticket,setTicket]=useState({})
     const {tid}=useParams()
+    const [refresh,setRefresh]=useState(false)
     console.log(tid)
-
+    console.log(refresh)
     useEffect(()=>{
-        tickets.forEach((tkt)=>{ if(tkt.id==tid) return setTicket(tkt) })
-    },[tid,message])
+        async function getSingleTicket(){
+            try {
+                const result = await axios.get(`http://localhost:3000/v1/tickets/${tid}`,{
+                headers:{
+                    Authorization:sessionStorage.getItem("accessJwt")
+                    }
+                })
+                console.log(result.data[0])
+                setTicket(result.data[0])
+                
+            } catch (error) {
+                console.log(error.response.data.message)
+            }
+            
+        }
+        getSingleTicket()
+    },[tid,refresh])
     
-
-    function handleOnChange(e){
-        console.log(e.target.value)
-        setMessage(e.target.value)
-    }
-    function handleOnSubmit(e){
-        e.preventDefault()
-        alert("message submitted")
-
+    async function handleTicketClose(){
+        console.log(sessionStorage.getItem("accessJwt"))
+        try {
+            const result = await axios.patch(`http://localhost:3000/v1/tickets/close-ticket/${tid}`,{},{
+                headers:{
+                    Authorization:sessionStorage.getItem("accessJwt")
+                }
+            })
+                console.log(result)
+                setRefresh((prev)=>!prev)
+        } catch (err) {
+            console.log(err)
+        }
     }
     return (
     <Container>
@@ -35,24 +54,26 @@ const Ticket = () => {
         <Row>
             <Col className="fw-bolder text-secondary">
                 <div className="subject">Subject: {ticket.subject}</div>
-                <div className="date">Date: {ticket.addedAt}</div>
+                <div className="date">Date: {new Date(ticket.openedAt).toLocaleString()}</div>
                 <div className="statis">Status: {ticket.status}</div>
             </Col>
             <Col className="text-end">
-                <Button style={{fontSize:"1.2rem"}} variant="outline-info">Close Ticket</Button>
+                <Button style={{fontSize:"1.2rem"}} 
+                variant="outline-info" 
+                onClick={handleTicketClose}
+                disabled={ticket.status=="Closed"} 
+                >Close Ticket</Button>
             </Col>
         </Row>
         <Row className="mt-4">
             <Col>
-                <MessageHistory msg={ticket.history}></MessageHistory>
+                <MessageHistory msg={ticket.conversations} ></MessageHistory>
             </Col>
         </Row>
         <hr />
         <Row>
             <Col>
-                <UpdateTicket message={message} 
-                handleOnChange={handleOnChange}
-                handleOnSubmit={handleOnSubmit} >
+                <UpdateTicket setRefresh={setRefresh} >
                 </UpdateTicket>
             </Col>
         </Row>

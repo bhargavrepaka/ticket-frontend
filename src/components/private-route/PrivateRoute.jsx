@@ -1,14 +1,37 @@
 /* eslint-disable no-unused-vars */
-import React from 'react'
-import { Outlet,Navigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Outlet, Navigate } from 'react-router-dom'
 import DefaultLayout from '../../layouts/DefaultLayout'
-
+import { useUser } from '../../context/userContext'
+import { useNavigate } from 'react-router-dom'
 // eslint-disable-next-line react/prop-types
 
-const isAuth=true
+
 const PrivateRoute = () => {
+  const navigate=useNavigate()
+  const { isAuth, setAuth} = useUser()
+  const [loading,setLoading]=useState(true)
+  useEffect(() => {
+    if(isAuth) {setLoading(false)}
+    else if(!isAuth && sessionStorage.getItem('accessJwt') ) {
+      setAuth(true)
+      setLoading(false)
+     }
+    else{
+      navigate("/")
+    }
+    },[])
   return (
-    isAuth? <DefaultLayout><Outlet></Outlet></DefaultLayout> : <Navigate to={"/"}></Navigate>
+    loading?<h1>loading</h1>
+          :
+     isAuth?<DefaultLayout>
+              <Outlet></Outlet >
+            </DefaultLayout > 
+          :
+            <>
+              {console.log("sending guy to login", isAuth)}
+              <Navigate to={"/"}></Navigate>
+            </>          
   )
 }
 

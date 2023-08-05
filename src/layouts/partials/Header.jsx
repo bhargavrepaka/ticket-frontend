@@ -3,10 +3,12 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { useUser } from '../../context/userContext';
 
 
 const Header = () => {
   const navigate=useNavigate()
+  const {setAuth}=useUser()
   async function handleLogout(){
     try {
       const result = await axios.delete("http://localhost:3000/v1/user/logout",{
@@ -14,6 +16,7 @@ const Header = () => {
       })
       console.log(result)
       sessionStorage.removeItem("accessJwt")
+      setAuth(false)
       navigate("/")
     } catch (error) {
       console.log(error)

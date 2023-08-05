@@ -1,14 +1,26 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/prop-types */
 
 import axios from 'axios'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Container,Row,Col,Form ,Button, Alert} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
+import { useUser } from '../../context/userContext'
+
+
 const Login = ({formSwitcher}) => {
-  const [email,setEmail]=useState("")
-  const [password,setPassword]=useState("")
+  const [email,setEmail]=useState("test@gmail.com")
+  const [password,setPassword]=useState("test")
   const [error,setError]=useState("")
+  const {setAuth}=useUser()
   const navigate=useNavigate()
+
+  useEffect(()=>{
+    if(sessionStorage.getItem("accessJwt")){
+      setAuth(true)
+      navigate("/dashboard")
+    }
+  },[])
 
   async function handleOnSubmit(e){
     e.preventDefault()
@@ -19,6 +31,7 @@ const Login = ({formSwitcher}) => {
       if(result.data.success){
         sessionStorage.setItem("accessJwt",result.data.accessJwt)
         localStorage.setItem("ticketsystem",JSON.stringify({refreshJwt:result.data.refreshJwt}))
+        setAuth(true)
       }
       navigate("/dashboard")
     } catch (err) {
