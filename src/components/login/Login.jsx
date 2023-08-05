@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { Container,Row,Col,Form ,Button, Alert} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '../../context/userContext'
+import { toast } from 'react-hot-toast'
 
 
 const Login = ({formSwitcher}) => {
@@ -33,6 +34,7 @@ const Login = ({formSwitcher}) => {
         localStorage.setItem("ticketsystem",JSON.stringify({refreshJwt:result.data.refreshJwt}))
         setAuth(true)
       }
+      toast.success("Welcome Back!")
       navigate("/dashboard")
     } catch (err) {
       console.log(err)

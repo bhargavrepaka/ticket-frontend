@@ -1,0 +1,1 @@
+//extract all calls from component and add here

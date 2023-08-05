@@ -4,6 +4,7 @@ import Navbar from 'react-bootstrap/Navbar';
 import { LinkContainer } from 'react-router-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/userContext';
+import { toast } from 'react-hot-toast';
 
 
 const Header = () => {
@@ -16,6 +17,9 @@ const Header = () => {
       })
       console.log(result)
       sessionStorage.removeItem("accessJwt")
+      toast('Logged Out... See you again ', {
+        icon: '👋',
+      });
       setAuth(false)
       navigate("/")
     } catch (error) {

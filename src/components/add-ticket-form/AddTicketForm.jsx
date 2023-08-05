@@ -4,6 +4,7 @@ import { useState } from 'react'
 import axios from 'axios'
 import {useUser} from "../../context/userContext"
 import { useNavigate } from 'react-router-dom'
+import { toast } from 'react-hot-toast'
 
 const initialData={subject:"",details:""}
 
@@ -37,6 +38,7 @@ const AddTicketForm = () => {
       })
       console.log(result.data)
       setFormData(initialData)
+      toast.success('Ticket Created')
       navigate("/")
     } catch (err) {
       console.log("eroor",err)

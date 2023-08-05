@@ -4,6 +4,7 @@ import { useState } from "react"
 import { Form,Button, Alert } from "react-bootstrap"
 import { useParams } from "react-router-dom"
 import { useUser } from "../../context/userContext"
+import { toast } from "react-hot-toast"
 const UpdateTicket = ({setRefresh,ticketStatus}) => {
   console.log(ticketStatus)
   const [message,setMessage]=useState("")
@@ -17,7 +18,6 @@ const UpdateTicket = ({setRefresh,ticketStatus}) => {
 
   async function handleOnSubmit(e){
       e.preventDefault()
-      alert("message submitted "+message)
       try {
         const result = await axios.put(`http://localhost:3000/v1/tickets/${tid}`,
                 {message,sender:user.name},
@@ -26,6 +26,7 @@ const UpdateTicket = ({setRefresh,ticketStatus}) => {
                 }})
         console.log(result)
         setMessage("")
+        toast.success('Message Sent')
         setRefresh((prev)=>{return !prev})
       } catch (err) {
         console.log(err)
