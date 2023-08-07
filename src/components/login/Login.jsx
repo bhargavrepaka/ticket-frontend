@@ -42,6 +42,8 @@ const Login = ({formSwitcher}) => {
     }
   }
   return (
+    // <div className="entry-page bg-info"> 
+    //   <div className=" p-5 bg-white text-black rounded form-box">
     <div>
         <Container>
           <Row>
@@ -85,6 +87,8 @@ const Login = ({formSwitcher}) => {
             
         </Container>
     </div>
+    // </div>
+    // </div>
   )
 }
 

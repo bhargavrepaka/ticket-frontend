@@ -35,6 +35,7 @@ const Entry = () => {
   }
 
 
+
   return (
     <div className="entry-page bg-info"> 
       <div className=" p-5 bg-white text-black rounded form-box">
@@ -42,6 +43,7 @@ const Entry = () => {
        {formLoad==="login" && 
           <Login 
               formSwitcher={formSwitcher}> 
+              formFor={}
           </Login>
         }
 

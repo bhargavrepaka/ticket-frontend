@@ -23,6 +23,8 @@ const App = () => {
           <Route path="/tickets" element={<TicketListing></TicketListing>}></Route>
           <Route path="/ticket/:tid" element={<Ticket></Ticket>}></Route>
         </Route>
+
+        
       </Routes>
       
       
