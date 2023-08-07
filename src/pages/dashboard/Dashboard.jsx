@@ -12,30 +12,8 @@ import { useTickets } from '../../context/ticketContext'
 
 
 const Dashboard = () => {
-    const {setUser}=useUser()
     const {totalTickets,openTickets}=useTickets()
     console.log(totalTickets,openTickets)
-
-    useEffect(()=>{
-        async function getUserDetails(){
-            try {
-                const accessJwt=sessionStorage.getItem("accessJwt")
-                const result = await axios.get("http://localhost:3000/v1/user",{
-                    headers:{
-                        Authorization:accessJwt
-                    }
-                })
-                console.log(result)
-                if(result.data.success){
-                    setUser(result.data)
-                }
-            } catch (error) {
-                console.log(error)
-            }
-        }
-        getUserDetails()
-    },[])
-
 
 
   return (
