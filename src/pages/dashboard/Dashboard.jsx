@@ -5,29 +5,29 @@ import TicketTable from '../../components/ticket-table/TicketTable'
 import tickets from '../../data/dumy-tickets.json'
 import PageBreadcrumb from '../../components/breadcrumb/Breadcrumb'
 import { Link } from 'react-router-dom'
-import { useEffect,} from 'react'
-import { useUser } from '../../context/userContext'
-import axios from 'axios'
 import { useTickets } from '../../context/ticketContext'
+import { useUser } from '../../context/userContext'
 
 
 const Dashboard = () => {
     const {totalTickets,openTickets}=useTickets()
     console.log(totalTickets,openTickets)
+    const {user}=useUser()
 
 
   return (
     <Container>
         <Row>
             <PageBreadcrumb pagename={"Dashboard"}></PageBreadcrumb>
+            <h1>{user.role}</h1>
         </Row>
         <Row >
-            <Col className='text-center mb-2'>
+            {user.role==="user" && <Col className='text-center mb-2'>
                 <Link to={"/add-ticket"}>
                 <Button variant='info' style={{fontSize:"2rem",padding:"10px 20px"}}> Add New Ticket</Button>
                 </Link>
             
-            </Col>
+            </Col>}
         </Row>
         <Row>
             <Col className='text-center mb-2'>

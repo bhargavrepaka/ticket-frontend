@@ -9,7 +9,7 @@ import { toast } from 'react-hot-toast';
 
 const Header = () => {
   const navigate=useNavigate()
-  const {setAuth}=useUser()
+  const {setAuth,setUser}=useUser()
   async function handleLogout(){
     try {
       const result = await axios.delete("http://localhost:3000/v1/user/logout",{
@@ -21,6 +21,7 @@ const Header = () => {
         icon: '👋',
       });
       setAuth(false)
+      setUser({})
       navigate("/")
     } catch (error) {
       console.log(error)

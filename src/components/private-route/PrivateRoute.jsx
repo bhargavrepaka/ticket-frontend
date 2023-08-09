@@ -22,7 +22,7 @@ const PrivateRoute = () => {
                         Authorization:accessJwt
                     }
                 })
-                console.log(result)
+                console.log(result.data)
                 if(result.data.success){
                     setUser(result.data)
                 }
@@ -32,7 +32,7 @@ const PrivateRoute = () => {
         }
 
     if(isAuth) {setLoading(false)}
-    else if(!isAuth && sessionStorage.getItem('accessJwt') ) {
+    if(sessionStorage.getItem('accessJwt') ) {
       setAuth(true)
       getUserDetails()
       setLoading(false)

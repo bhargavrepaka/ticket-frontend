@@ -1,6 +1,7 @@
 .message-history{
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-end;
+    gap: 1rem;
    
 }
 .operator-message{
@@ -13,7 +14,8 @@
 
 .message{
     padding: 1rem;
-    width: 80%;
+    width: fit-content;
+    max-width: 40%;
     border: 1px solid rgb(12, 137, 232);
     border-radius: 0.25rem;
 }

@@ -15,6 +15,7 @@ const App = () => {
     <div >
       <Toaster/>
       <Routes>
+        {/* user router */}
         <Route path="/"element={<Entry></Entry>} ></Route>
 
         <Route element={<PrivateRoute/>}>
@@ -23,6 +24,10 @@ const App = () => {
           <Route path="/tickets" element={<TicketListing></TicketListing>}></Route>
           <Route path="/ticket/:tid" element={<Ticket></Ticket>}></Route>
         </Route>
+
+        <Route path="/admin"element={<Entry></Entry>} ></Route>
+
+
 
         
       </Routes>

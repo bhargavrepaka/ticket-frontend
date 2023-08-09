@@ -5,13 +5,14 @@ const MessageHistory = ({msg}) => {
     return msg.map((message,index)=>{
         return (
             <div 
-            className={`message-history mt-3  ${message.sender==="operator" && "operator-message" }`} 
+            className={`message-history mt-3  ${message.sender==="admin" && "operator-message" }`} 
             key={index} >
+                
+                <div className="message">{message.message}</div>
                 <div className="send fw-bold text-secondary">
                     <div className="sender">{message.sender}</div>
                     <div className="date">{new Date(message.msgAt).toLocaleString()}</div>
                 </div>
-                <div className="message">{message.message}</div>
             </div>)
     })
 }

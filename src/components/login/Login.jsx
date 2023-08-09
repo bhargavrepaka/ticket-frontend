@@ -9,7 +9,7 @@ import { useUser } from '../../context/userContext'
 import { toast } from 'react-hot-toast'
 
 
-const Login = ({formSwitcher}) => {
+const Login = ({formSwitcher,formFor}) => {
   const [email,setEmail]=useState("test@gmail.com")
   const [password,setPassword]=useState("test")
   const [error,setError]=useState("")
@@ -48,7 +48,7 @@ const Login = ({formSwitcher}) => {
         <Container>
           <Row>
             <Col>
-            <h1>Client Login</h1>
+            <h1>{formFor}</h1>
             <hr />
             {error && <Alert variant='danger'>Something went wrong...</Alert> }
             <Form onSubmit={handleOnSubmit}>

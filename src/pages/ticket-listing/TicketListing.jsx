@@ -4,10 +4,11 @@ import PageBreadcrumb from '../../components/breadcrumb/Breadcrumb'
 import SearchForm from '../../components/search-form/SearchForm'
 import TicketTable from '../../components/ticket-table/TicketTable'
 import { Link } from 'react-router-dom'
+import { useUser } from '../../context/userContext'
 
 
 const TicketListing = () => {
-    
+    const {user}=useUser()
 
 
   return (
@@ -18,12 +19,11 @@ const TicketListing = () => {
             </Col>
         </Row>
         <Row>
-            <Col>
+        {user.role==="user" && <Col>
                 <Link to={"/add-ticket"}>
-                 <Button variant='info'>Add Ticket</Button>
+                    <Button variant='info'>Add Ticket</Button>
                 </Link>
-                
-            </Col>
+            </Col>}
             <Col className='text-right'>
                 <SearchForm ></SearchForm>
             </Col>
