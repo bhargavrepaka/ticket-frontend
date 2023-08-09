@@ -7,6 +7,8 @@ import { Container,Row,Col,Form ,Button, Alert} from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { useUser } from '../../context/userContext'
 import { toast } from 'react-hot-toast'
+import { auth } from '../../../firebase/firebase-config'
+import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 
 
 const Login = ({formSwitcher,formFor}) => {
@@ -41,6 +43,19 @@ const Login = ({formSwitcher,formFor}) => {
       setError(err.message)
     }
   }
+
+  async function loginWithGoogle(){
+    const googleAuth= new GoogleAuthProvider()
+    try {
+      const result =await signInWithPopup(auth,googleAuth) 
+      console.log(result)
+    } catch (err) {
+      console.log(err)
+      setError(err.message)
+    }
+    
+  }
+
   return (
     // <div className="entry-page bg-info"> 
     //   <div className=" p-5 bg-white text-black rounded form-box">
@@ -76,6 +91,10 @@ const Login = ({formSwitcher,formFor}) => {
               </Form.Group>
               <Button type='submit'>Login</Button>
             </Form>
+            <Button variant='primary' 
+                    className='mt-2'
+                    onClick={loginWithGoogle}
+                    > Login in with Google</Button>
             <hr />
             </Col>
           </Row>
