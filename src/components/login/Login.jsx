@@ -47,8 +47,16 @@ const Login = ({formSwitcher,formFor}) => {
   async function loginWithGoogle(){
     const googleAuth= new GoogleAuthProvider()
     try {
-      const result =await signInWithPopup(auth,googleAuth) 
+      const res =await signInWithPopup(auth,googleAuth) 
+      console.log(res)
+      const {displayName,email,refreshToken,uid}= res.user
+      console.log({displayName,email,refreshToken,uid})
+      const result = await axios.post("http://localhost:3000/v1/user/firebaselogin",
+                                      {displayName,email,refreshToken,uid})
       console.log(result)
+      sessionStorage.setItem("accessJwt",result.data.accessJwt)
+      setAuth(true)
+      navigate("/dashboard")
     } catch (err) {
       console.log(err)
       setError(err.message)

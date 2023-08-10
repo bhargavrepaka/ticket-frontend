@@ -7,13 +7,15 @@ import { TicketProvider } from './context/ticketContext.jsx';
 import { UserProvider } from './context/userContext.jsx';
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <React.StrictMode>
-  <UserProvider>
-    <TicketProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </TicketProvider>
-  </UserProvider>
+  <BrowserRouter>
+    <UserProvider>
+      <TicketProvider>
+        
+          <App />
+        
+      </TicketProvider>
+    </UserProvider>
+  </BrowserRouter>
   // </React.StrictMode>  
   ,
 )

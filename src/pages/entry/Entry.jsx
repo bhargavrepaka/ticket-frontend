@@ -11,9 +11,9 @@ const Entry = () => {
   const [password,setPassword]=useState("")
   const [formLoad,setFormLoad]=useState("login")
   const location=useLocation()
-  console.log(location)
+  // console.log(location)
   const formFor=location.pathname==="/admin"?"Admin Login":"User Login"
-  console.log(formFor)
+  // console.log(formFor)
   function handleOnChange(e){
     const {name,value}=e.target
     console.log(name, value)

@@ -11,8 +11,8 @@ import { useUser } from '../../context/userContext'
 
 const Dashboard = () => {
     const {totalTickets,openTickets}=useTickets()
-    console.log(totalTickets,openTickets)
     const {user}=useUser()
+    console.log(user)
 
 
   return (

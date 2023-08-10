@@ -5,6 +5,8 @@ import { LinkContainer } from 'react-router-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import { useUser } from '../../context/userContext';
 import { toast } from 'react-hot-toast';
+import { signOut } from 'firebase/auth';
+import { auth } from '../../../firebase/firebase-config';
 
 
 const Header = () => {
@@ -28,6 +30,16 @@ const Header = () => {
     }
   }
 
+  async function firebaseLogout(){
+    signOut(auth)
+    setAuth(false)
+    sessionStorage.removeItem("accessJwt")
+    setUser({})
+    toast('Logged Out... See you again ', {
+      icon: '👋',
+    });
+  }
+
   return (
     <Navbar expand="md" variant='dark' bg='info' className='p-2'>
         <Navbar.Brand>Logo</Navbar.Brand>
@@ -36,7 +48,7 @@ const Header = () => {
                 <LinkContainer to={"/dashboard"}><Nav.Link >DashBoard</Nav.Link></LinkContainer>
                 <LinkContainer to={"/tickets"}><Nav.Link >Tickets</Nav.Link></LinkContainer>
                 <Nav.Link onClick={handleLogout}>Logout</Nav.Link>
-                 
+                <Nav.Link onClick={firebaseLogout}>Firebase Logout</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
 
