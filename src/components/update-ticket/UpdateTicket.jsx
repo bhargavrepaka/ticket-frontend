@@ -5,6 +5,9 @@ import { Form,Button, Alert } from "react-bootstrap"
 import { useParams } from "react-router-dom"
 import { useUser } from "../../context/userContext"
 import { toast } from "react-hot-toast"
+import { API_BASE_URL } from "../../env"
+
+
 const UpdateTicket = ({setRefresh,ticketStatus}) => {
   console.log(ticketStatus)
   const [message,setMessage]=useState("")
@@ -19,7 +22,7 @@ const UpdateTicket = ({setRefresh,ticketStatus}) => {
   async function handleOnSubmit(e){
       e.preventDefault()
       try {
-        const result = await axios.put(`http://localhost:3000/v1/tickets/${tid}`,
+        const result = await axios.put(`${API_BASE_URL}/v1/tickets/${tid}`,
                 {message,sender:user.role==="admin"? user.role :user.name},
                 {headers:{
                     Authorization:sessionStorage.getItem("accessJwt")

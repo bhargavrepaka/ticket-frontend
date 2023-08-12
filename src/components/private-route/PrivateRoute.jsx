@@ -6,7 +6,7 @@ import DefaultLayout from '../../layouts/DefaultLayout'
 import { useUser } from '../../context/userContext'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { auth } from '../../../firebase/firebase-config'
+import {API_BASE_URL} from "../../env"
 // eslint-disable-next-line react/prop-types
 
 
@@ -17,7 +17,7 @@ const PrivateRoute = () => {
   useEffect(() => {
     async function getUserDetails(){
         try {
-            const result = await axios.get("http://localhost:3000/v1/user",{
+            const result = await axios.get(API_BASE_URL+ "/v1/user",{
                 headers:{
                     Authorization:sessionStorage.getItem('accessJwt'),
                 }

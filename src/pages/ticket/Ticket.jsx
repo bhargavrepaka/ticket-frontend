@@ -5,6 +5,7 @@ import UpdateTicket from "../../components/update-ticket/UpdateTicket"
 import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom"
 import axios from "axios"
+import { API_BASE_URL } from "../../env"
 
 
 const Ticket = () => {
@@ -16,7 +17,7 @@ const Ticket = () => {
     useEffect(()=>{
         async function getSingleTicket(){
             try {
-                const result = await axios.get(`http://localhost:3000/v1/tickets/${tid}`,{
+                const result = await axios.get(`${API_BASE_URL}/v1/tickets/${tid}`,{
                 headers:{
                     Authorization:sessionStorage.getItem("accessJwt")
                     }
@@ -35,7 +36,7 @@ const Ticket = () => {
     async function handleTicketClose(){
         console.log(sessionStorage.getItem("accessJwt"))
         try {
-            const result = await axios.patch(`http://localhost:3000/v1/tickets/close-ticket/${tid}`,{},{
+            const result = await axios.patch(`${API_BASE_URL}/v1/tickets/close-ticket/${tid}`,{},{
                 headers:{
                     Authorization:sessionStorage.getItem("accessJwt")
                 }

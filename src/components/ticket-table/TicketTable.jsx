@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { useTickets } from '../../context/ticketContext'
 import { useEffect, useState } from 'react'
 import axios from 'axios'
+import { API_BASE_URL } from '../../env'
 
 const TicketTable = () => {
 
@@ -15,7 +16,7 @@ const TicketTable = () => {
     async function getAllTickets(){
       setError("")
       try {
-        const result =await axios.get("http://localhost:3000/v1/tickets/",{
+        const result =await axios.get(API_BASE_URL+"/v1/tickets/",{
         headers:{
           Authorization:sessionStorage.getItem("accessJwt")
           }

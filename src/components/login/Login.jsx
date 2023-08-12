@@ -9,7 +9,7 @@ import { useUser } from '../../context/userContext'
 import { toast } from 'react-hot-toast'
 import { auth } from '../../../firebase/firebase-config'
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
-
+import { API_BASE_URL } from '../../env'
 
 const Login = ({formSwitcher,formFor}) => {
   const [email,setEmail]=useState("test@gmail.com")
@@ -29,7 +29,7 @@ const Login = ({formSwitcher,formFor}) => {
     e.preventDefault()
     setError("")
     try {
-      const result = await axios.post("http://localhost:3000/v1/user/login",{email,password})
+      const result = await axios.post(API_BASE_URL+"/v1/user/login",{email,password})
       console.log(result.data)
       if(result.data.success){
         sessionStorage.setItem("accessJwt",result.data.accessJwt)
@@ -51,7 +51,7 @@ const Login = ({formSwitcher,formFor}) => {
       console.log(res)
       const {displayName,email,refreshToken,uid}= res.user
       console.log({displayName,email,refreshToken,uid})
-      const result = await axios.post("http://localhost:3000/v1/user/firebaselogin",
+      const result = await axios.post(API_BASE_URL+"/v1/user/firebaselogin",
                                       {displayName,email,refreshToken,uid})
       console.log(result)
       sessionStorage.setItem("accessJwt",result.data.accessJwt)
