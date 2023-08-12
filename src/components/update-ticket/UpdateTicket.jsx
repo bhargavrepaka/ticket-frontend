@@ -14,13 +14,13 @@ const UpdateTicket = ({setRefresh,ticketStatus}) => {
     console.log(e.target.value)
     setMessage(e.target.value)
   }
-  console.log("logged in user's name -",user.name)
+  console.log("logged in user's name -",user.role)
 
   async function handleOnSubmit(e){
       e.preventDefault()
       try {
         const result = await axios.put(`http://localhost:3000/v1/tickets/${tid}`,
-                {message,sender:user.name},
+                {message,sender:user.role==="admin"? user.role :user.name},
                 {headers:{
                     Authorization:sessionStorage.getItem("accessJwt")
                 }})
@@ -47,6 +47,7 @@ const UpdateTicket = ({setRefresh,ticketStatus}) => {
                 name="replyMessage"
                 value={message}
                 onChange={handleOnChange}
+                required
             ></Form.Control>
         </Form.Group>
         <div className="text-end mt-3">
